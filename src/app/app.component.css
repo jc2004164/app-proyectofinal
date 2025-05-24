@@ -1,0 +1,19 @@
+.angular-logo {
+    max-width: 9.2rem;
+  }
+.footer {
+
+  background-color: #f2f2f2;
+  text-align: center;
+  padding: 10px 0;
+}
+.foto {
+  width: 300px;        /* o cualquier tamaño */
+  height: auto;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+nav.navbar {
+  margin-top: 100px; /* Ajusta según el alto de tu imagen */
+}

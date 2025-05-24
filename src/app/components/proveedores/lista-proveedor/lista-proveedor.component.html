@@ -1,0 +1,165 @@
+
+<div class="my-4"></div>
+<div>
+  <div>
+<div class="d-flex justify-content-between">
+  <div>
+    <p style="font-weight: bold;">&nbsp; Fecha de ingreso:&nbsp;&nbsp;&nbsp; {{ hoy | date : 'EEEE, MMMM d, y, h:mm a' }}</p>
+  </div>
+  <div>
+    <p style="font-weight: bold;">*1: Energía &nbsp; 2: Minería &nbsp; 3: Maquinaria &nbsp; 4: Baja &nbsp; 5: Media &nbsp; 6: Alta</p>
+  </div>
+</div>
+</div>
+  <form [formGroup]="frmProveedor" >
+  <div class="row" >
+
+    <div class="col-md-2 d-flex justify-content-center align-items-center">
+
+        <label for="nombre_empresa" class="form-label">Buscar por Empresa:</label>
+      </div>
+      <div class="col-md-6" style="margin-left: -50px;">
+        <input type="text"  formControlName="nombre_empresa" class="form-control" id="nombre_empresa" >
+      </div>
+
+    <div class="col-md-4" style="text-align: right;">
+      <button type="button"  style="margin-left: 10px;" (click)="nuevo()" class="btn btn-outline-success me-3" >NUEVO</button>
+      <button type="submit"  style="margin-left: 10px;" (click)="limpiar()" class="btn btn-outline-dark me-3" >LIMPIAR</button>
+      <button type="button"  style="margin-left: 10px;" (click)="buscar()" class="btn btn-outline-primary me-3" >BUSCAR</button>
+    </div>
+
+  </div>
+</form>
+
+<div class="my-4"></div>
+  <div class="row">
+    <div class="col-md-12">
+
+    <table class="table table-striped text-center align-middle">
+      <thead class="table-dark">
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">NOMBRE</th>
+          <th scope="col">EMPRESA</th>
+          <th scope="col">E-MAIL</th>
+          <th scope="col">TELEFONO</th>
+          <th scope="col">DIRECCION</th>
+          <th scope="col">CATEGORIA*</th>
+          <th scope="col">TIPO DE EMPRESA</th>
+          <th scope="col" colspan="3">OPCIONES </th>
+        </tr>
+      </thead>
+
+      <tbody>
+      <!---- {{proveedores  |json}}-->
+        @for(proveedor of pagedItems; track proveedor.id){
+          <tr>
+            <td scope="col">{{proveedor.id}}</td>
+            <td>{{proveedor.nombre}}</td>
+            <td>{{proveedor.nombre_empresa |uppercase}}</td>
+            <td>{{proveedor.email|lowercase}}</td>
+            <td>{{proveedor.telefono}}</td>
+            <td>{{proveedor.direccion|shortDireccion:15}}</td>
+            <td>{{proveedor.categoria}}</td>
+            <td>{{proveedor.tipo_empresa}}</td>
+            <td>
+              <button type="button" (click)="visualizar(proveedor)" class="btn btn-success me-2" >VISUALIZAR
+
+              </button>
+
+            </td>
+            <td>
+              <button type="button" (click)="eliminar(proveedor)" class="btn btn-danger me-2" >ELIMINAR</button>
+            </td>
+            <td>
+              <button type="button" (click)="modificar(proveedor)" class="btn btn-primary me-2" >MODIFICAR</button>
+            </td>
+          </tr>
+        }
+      </tbody>
+
+
+</table>
+    </div>
+  </div>
+
+<div class="row">
+  <div class="col-12">
+      <p-paginator
+      (onPageChange)="onPageChange($event)"
+      [first]="first"
+      [rows]="rows"
+      [totalRecords]="proveedores.length"
+      [rowsPerPageOptions]="[5, 10, 20]" />
+  </div>
+</div>
+
+    <p-dialog  header="Detalle del Proveedor" [(visible)]="visible" [modal]="true" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [style]="{ width: '40vw' }" [draggable]="false" [resizable]="false">
+
+        <!-- {{proveedoresVisualizar|json}}-->
+        <table class="table table-striped text-center align-middle">
+
+
+          <tbody>
+          <!---- {{proveedores  |json}}-->
+
+              <tr>
+                <td scope="col">ID:</td>
+                <td scope="col"> {{proveedoresVisualizar?.id}} </td>
+              </tr>
+              <tr>
+                <td scope="col">Nombre:</td>
+                <td scope="col"> {{proveedoresVisualizar?.nombre}} </td>
+              </tr>
+              <tr>
+                <td scope="col">Empresa:</td>
+                <td scope="col"> {{proveedoresVisualizar?.nombre_empresa|uppercase}} </td>
+              </tr>
+              <tr>
+                <td scope="col">E-mail:</td>
+                <td scope="col"> {{proveedoresVisualizar?.email|lowercase}} </td>
+              </tr>
+              <tr>
+                <td scope="col">Telefono:</td>
+                <td scope="col"> {{proveedoresVisualizar?.telefono}} </td>
+              </tr>
+              <tr>
+                <td scope="col">Direccion:</td>
+                <td scope="col"> {{proveedoresVisualizar?.direccion}} </td>
+              </tr>
+              <tr>
+                <td scope="col">Categoria:</td>
+                @if (idCategoria==1) {
+                  <td scope="col"> Energia </td>
+                }
+                @if (idCategoria==2) {
+                  <td scope="col"> Mineria </td>
+                }
+                @if (idCategoria==3) {
+                  <td scope="col"> Maquinaria </td>
+                }
+                @if (idCategoria==4) {
+                  <td scope="col"> Baja </td>
+                }
+                @if (idCategoria==5) {
+                  <td scope="col"> Media </td>
+                }
+                @if (idCategoria==6) {
+                  <td scope="col"> Alta </td>
+                }
+              </tr>
+              <tr>
+                <td scope="col">Tipo de Empresa:</td>
+                <td scope="col"> {{proveedoresVisualizar?.tipo_empresa}} </td>
+              </tr>
+          </tbody>
+      </table>
+    </p-dialog>
+</div>
+
+
+
+
+  <tfoot>
+        TOTAL DE REGISTROS: {{proveedores.length}}
+      </tfoot>

@@ -1,0 +1,158 @@
+
+<form [formGroup]="frmProveedor" (ngSubmit)="onSubmit()">
+  <div class="mb-3">
+    <label for="nombre" class="form-label">NOMBRES</label>
+    <input type="text"  formControlName="nombre" class="form-control" id="nombre"
+    [ngClass]="{ 'is-invalid': fp['nombre'].errors }" >
+    @if (fp['nombre'].errors) {
+        <div class="invalid-feedback">
+          @if (fp['nombre'].errors['required']) {
+          <div>Campo requerido</div>
+          } @if (fp['nombre'].hasError('minlength')) {
+          <div>
+            El nombre es requerido y debe tener como mímino
+            {{ fp["nombre"].errors["minlength"].requiredLength }} caracteres
+          </div>
+          } @if (fp['nombre'].hasError('maxlength')) {
+          <div>
+            El nombre es requerido y debe tener como máxino
+            {{ fp["nombre"].errors["maxlength"].requiredLength }} caracteres
+          </div>
+          }
+        </div>
+    }
+  </div>
+  <div class="mb-3">
+    <label for="nombre_empresa" class="form-label">EMPRESA</label>
+    <input type="text" formControlName="nombre_empresa" class="form-control" id="nombre_empresa"
+    [ngClass]="{ 'is-invalid': fp['nombre_empresa'].errors }" >
+    @if (fp['nombre_empresa'].errors) {
+        <div class="invalid-feedback">
+          @if (fp['nombre_empresa'].errors['required']) {
+          <div>Campo requerido</div>
+          } @if (fp['nombre_empresa'].hasError('minlength')) {
+          <div>
+            El nombre es requerido y debe tener como mímino
+            {{ fp["nombre_empresa"].errors["minlength"].requiredLength }} caracteres
+          </div>
+          } @if (fp['nombre_empresa'].hasError('maxlength')) {
+          <div>
+            El nombre es requerido y debe tener como máxino
+            {{ fp["nombre_empresa"].errors["maxlength"].requiredLength }} caracteres
+          </div>
+          }
+          </div>
+        }
+  </div>
+  <div class="mb-3">
+    <label for="email" class="form-label">E-MAIL</label>
+    <input type="email" formControlName="email" class="form-control" id="email"
+    [ngClass]="{ 'is-invalid': fp['email'].errors }" >
+    @if (fp['email'].errors) {
+        <div class="invalid-feedback">
+          @if (fp['email'].errors['required']) {
+            <div>El correo es obligatorio.</div>
+          }
+          @if (fp['email'].errors['email']) {
+            <div>El formato del correo no es válido.</div>
+          }
+        </div>
+    }
+  </div>
+  <div class="mb-3">
+    <label for="telefono" class="form-label">TELEFONO (Ejemplo: +51912345678)</label>
+    <input type="text" formControlName="telefono" class="form-control" id="telefono"
+    [ngClass]="{ 'is-invalid': fp['telefono'].errors }">
+    @if (fp['telefono'].errors) {
+        <div class="invalid-feedback">
+          @if (fp['telefono'].errors['required']) {
+          <div>Campo requerido</div>
+          } @if (fp['telefono'].hasError('minlength')) {
+          <div>
+            El telefono es requerido y debe tener como mímino
+            {{ fp["telefono"].errors["minlength"].requiredLength }} caraceteres
+          </div>
+          } @if (fp['telefono'].hasError('maxlength')) {
+          <div>
+            El telefono es requerido y debe tener como máxino
+            {{ fp["telefono"].errors["maxlength"].requiredLength }} caraceteres
+          </div>
+          }
+          @if (fp['telefono'].hasError('pattern')) {
+          <div>
+              Formato no valido
+          </div>
+          }
+          </div>
+        }
+  </div>
+  <div class="mb-3">
+    <label for="direccion" class="form-label">DIRECCION</label>
+    <input type="text" formControlName="direccion" class="form-control" id="direccion"
+    [ngClass]="{ 'is-invalid': fp['direccion'].errors }">
+    @if (fp['direccion'].errors) {
+        <div class="invalid-feedback">
+          @if (fp['direccion'].errors['required']) {
+          <div>Campo requerido</div>
+          } @if (fp['direccion'].hasError('minlength')) {
+          <div>
+            El telefono es requerido y debe tener como mímino
+            {{ fp["direccion"].errors["minlength"].requiredLength }} caraceteres
+          </div>
+          } @if (fp['direccion'].hasError('maxlength')) {
+          <div>
+            El telefono es requerido y debe tener como máxino
+            {{ fp["direccion"].errors["maxlength"].requiredLength }} caraceteres
+          </div>
+          }
+          </div>
+        }
+
+  </div>
+  <div class="mb-3">
+    <label for="tipo_empresa" class="form-label">TIPO DE EMPRESA</label>
+    <input type="text"  formControlName="tipo_empresa" class="form-control" id="tipo_empresa"
+    [ngClass]="{ 'is-invalid': fp['tipo_empresa'].errors }">
+    @if (fp['tipo_empresa'].errors) {
+        <div class="invalid-feedback">
+          @if (fp['tipo_empresa'].errors['required']) {
+          <div>Campo requerido</div>
+          } @if (fp['tipo_empresa'].hasError('minlength')) {
+          <div>
+            El telefono es requerido y debe tener como mímino
+            {{ fp["tipo_empresa"].errors["minlength"].requiredLength }} caraceteres
+          </div>
+          } @if (fp['tipo_empresa'].hasError('maxlength')) {
+          <div>
+            El telefono es requerido y debe tener como máxino
+            {{ fp["tipo_empresa"].errors["maxlength"].requiredLength }} caraceteres
+          </div>
+          }
+          </div>
+        }
+  </div>
+  <div class="mb-3">
+      <label for="categoria" class="form-label">CATEGORIA</label>
+      <select id="categoria" formControlName="categoria" class="form-select"
+      [ngClass]="{ 'is-invalid': fp['categoria'].errors }">
+        <option value=""> --seleccione-- </option>
+        @for(categoria of categorias; track categoria.id){
+          <option value="{{categoria.id}}"> {{categoria.descripcion}} </option>
+        }
+      </select>
+        @if (fp['categoria'].errors) {
+        <div class="invalid-feedback">
+          @if (fp['categoria'].errors['required']) {
+          <div>Campo requerido</div>
+          }
+          </div>
+        }
+    </div>
+    <div class="mb-5">
+      <button type="submit" class="btn btn-success me-3" >GUARDAR</button>
+  <button type="button" (click)="irALista()" class="btn btn-primary me-3" >IR A LISTA</button>
+  <button type="button" (click)="cancelar()" class="btn btn-danger me-3" >IR A INICIO</button>
+    </div>
+
+
+</form>

@@ -1,1 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
+.footer {
+
+  background-color: #f2f2f2;
+  text-align: center;
+  padding: 10px 0;
+}
+body {
+  height: 100%;
+  margin: 0;
+}
+.page-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Altura mínima de toda la pantalla*/
+}
+.page-wrapper {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+
+
